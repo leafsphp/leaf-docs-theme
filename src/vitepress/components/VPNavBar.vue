@@ -39,14 +39,14 @@ defineProps<{
   padding: 0 12px 0 24px;
   backdrop-filter: blur(5px);
   height: var(--vt-nav-height);
-  background: rgba(var(--vt-c-bg), .8);
+  background: rgba(255, 255, 255, .9);
   white-space: nowrap;
   transition: border-color 0.5s, background-color 0.5s;
 }
 
-/* .dark .VPNavBar {
-  background: rgba(0, 30, 38, .8);
-} */
+.dark .VPNavBar {
+  background: rgba(var(--vt-c-bg), .8);
+}
 
 @media (min-width: 768px) {
   .VPNavBar {
