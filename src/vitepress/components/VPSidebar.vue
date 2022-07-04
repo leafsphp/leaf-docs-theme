@@ -20,18 +20,10 @@ watchPostEffect(async () => {
 </script>
 
 <template>
-  <aside
-    v-if="hasSidebar"
-    ref="navEl"
-    class="VPSidebar"
-    :class="{ open }"
-    @click.stop
-  >
+  <aside v-if="hasSidebar" ref="navEl" class="VPSidebar" :class="{ open }" @click.stop>
     <nav id="VPSidebarNav" aria-labelledby="sidebar-aria-label" tabindex="-1">
       <slot name="top" />
-      <span id="sidebar-aria-label" class="visually-hidden"
-        >Sidebar Navigation</span
-      >
+      <span id="sidebar-aria-label" class="visually-hidden">Sidebar Navigation</span>
       <div v-for="group in sidebar" :key="group.text" class="group">
         <VPSidebarGroup :text="group.text" :items="group.items" />
       </div>
@@ -70,11 +62,14 @@ watchPostEffect(async () => {
   display: none;
 } */
 
+.VPSidebar {
+  border-right: 1px solid var(--vt-c-divider-light);
+}
+
 @media (min-width: 960px) {
   .VPSidebar {
     top: calc(var(--vt-nav-height) + var(--vt-banner-height, 0px));
     z-index: 1;
-    /* border-right: 1px solid var(--vt-c-divider-light); */
     width: var(--vp-sidebar-width-small);
     max-width: 100%;
     opacity: 1;
@@ -85,12 +80,16 @@ watchPostEffect(async () => {
   }
 }
 
+@media (min-width: 1280px) {
+  .VPSidebar {
+    border-right: none !important;
+  }
+}
+
 @media (min-width: 1440px) {
   .VPSidebar {
     padding: 0 32px 96px calc((100% - var(--vp-screen-max-width)) / 2);
-    width: calc(
-      (100% - var(--vp-screen-max-width)) / 2 + var(--vp-sidebar-width-small)
-    );
+    width: calc((100% - var(--vp-screen-max-width)) / 2 + var(--vp-sidebar-width-small));
   }
 }
 
@@ -106,12 +105,12 @@ watchPostEffect(async () => {
   box-shadow: var(--vt-shadow-1);
 } */
 
-.group + .group {
+.group+.group {
   padding-top: 24px;
 }
 
 @media (min-width: 960px) {
-  .group + .group {
+  .group+.group {
     padding-top: 16px;
   }
 }

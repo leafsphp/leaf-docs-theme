@@ -26,11 +26,7 @@ defineProps<{
         <VPNavBarAppearance class="appearance" />
         <VPNavBarSocialLinks class="social-links" />
         <VPNavBarExtra class="extra" />
-        <VPNavBarHamburger
-          class="hamburger"
-          :active="isScreenOpen"
-          @click="$emit('toggle-screen')"
-        />
+        <VPNavBarHamburger class="hamburger" :active="isScreenOpen" @click="$emit('toggle-screen')" />
       </div>
     </div>
   </div>
@@ -41,11 +37,16 @@ defineProps<{
   position: relative;
   border-bottom: 1px solid var(--vt-c-divider-light);
   padding: 0 12px 0 24px;
+  backdrop-filter: blur(5px);
   height: var(--vt-nav-height);
-  background-color: var(--vt-c-bg);
+  background: rgba(var(--vt-c-bg), .8);
   white-space: nowrap;
   transition: border-color 0.5s, background-color 0.5s;
 }
+
+/* .dark .VPNavBar {
+  background: rgba(0, 30, 38, .8);
+} */
 
 @media (min-width: 768px) {
   .VPNavBar {
@@ -56,6 +57,7 @@ defineProps<{
 @media (min-width: 1280px) {
   .VPNavBar {
     padding: 0 32px;
+    border-bottom: none !important;
   }
 }
 
@@ -73,13 +75,15 @@ defineProps<{
   flex-grow: 1;
 }
 
-.menu + .appearance {
+.menu+.appearance {
   margin-left: 8px;
 }
-.menu + .social-links {
+
+.menu+.social-links {
   margin-left: 12px;
 }
-.appearance + .social-links {
+
+.appearance+.social-links {
   margin-left: 12px;
 }
 </style>
