@@ -30,7 +30,7 @@ const closeSideBar = inject('close-sidebar') as () => void
 
 @media (min-width: 960px) {
   .link {
-    padding: 4px 0;
+    padding: 4px 10px;
   }
 }
 

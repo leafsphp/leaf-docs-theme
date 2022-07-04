@@ -33,11 +33,12 @@ function hasActiveLink() {
 <style scoped>
 .title {
   padding: 6px 0;
+  text-transform: uppercase;
 }
 
 @media (min-width: 960px) {
   .title {
-    padding: 4px 0;
+    padding: 10px 0px 6px 0px;
   }
 }
 
