@@ -1,8 +1,8 @@
 .vt-doc .custom-block {
   margin: 28px 0;
-  padding: 20px 24px 4px 42px;
-  border-radius: 8px;
-  overflow-x: auto;
+  padding: 20px 24px 4px 24px;
+  border-radius: 10px;
+  /* overflow-x: auto; */
   transition: color 0.5s, background-color 0.5s;
   position: relative;
   font-size: 14px;
@@ -10,6 +10,8 @@
   font-weight: 500;
   color: rgba(0, 0, 0, 0.55);
   background-color: var(--vt-c-bg-soft);
+  border-left-width: 0.5rem !important;
+  border-left-style: solid !important;
 }
 
 .dark .vt-doc .custom-block {
@@ -18,20 +20,22 @@
 }
 
 .vt-doc .custom-block:before {
-  content: 'ⓘ';
+  content: url(../../vitepress/images/icons/bulb.svg);
+  /* content: 'ⓘ'; */
   position: absolute;
   font-weight: 600;
-  font-size: 15px;
+  font-size: 18px;
   top: 20px;
-  left: 17px;
+  left: -16px;
+  z-index: 10000 !important;
 }
 
-.vt-doc .custom-block.warning:before,
+.vt-doc .custom-block.warning:before {
+  content: url(../../vitepress/images/icons/danger.svg);
+}
+
 .vt-doc .custom-block.danger:before {
-  content: '⚠';
-  font-size: 17px;
-  top: 19px;
-  left: 16ppx;
+  content: url(../../vitepress/images/icons/stop.svg);
 }
 
 .vt-doc .custom-block .custom-block-title {
@@ -43,22 +47,24 @@
 }
 
 .vt-doc .custom-block.tip {
-  border: 1px solid var(--vt-c-brand);
+  border-color: var(--vt-c-brand);
 }
 .vt-doc .custom-block.tip:before {
   color: var(--vt-c-brand);
 }
 
 .vt-doc .custom-block.warning {
-  border: 1px solid var(--vt-c-yellow);
+  border-color: var(--vt-c-yellow);
 }
+
 .vt-doc .custom-block.warning:before {
   color: var(--vt-c-yellow);
 }
 
 .vt-doc .custom-block.danger {
-  border: 1px solid var(--vt-c-red);
+  border-color: var(--vt-c-red);
 }
+
 .vt-doc .custom-block.danger .custom-block-title,
 .vt-doc .custom-block.danger:before {
   color: var(--vt-c-red);
