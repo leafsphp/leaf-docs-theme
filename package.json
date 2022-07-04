@@ -1,6 +1,6 @@
 {
-  "name": "@vue/theme",
-  "version": "1.0.1",
+  "name": "@mychi/leaf-theme",
+  "version": "0.1.0",
   "description": "The design system for Leaf PHP.",
   "main": "src/index.ts",
   "exports": {
@@ -14,18 +14,14 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/vuejs/theme.git"
+    "url": "git+https://github.com/mychidarko/leaf-docs-theme.git"
   },
   "keywords": [
-    "vue",
+    "leaf php",
     "design-system"
   ],
-  "author": "Evan You",
+  "author": "Michael Darko",
   "license": "MIT",
-  "homepage": "https://theme.vuejs.org",
-  "bugs": {
-    "url": "https://github.com/vuejs/theme/issues"
-  },
   "scripts": {
     "lint": "prettier --check --write --parser typescript \"{__tests__,docs,src,types}/**/*.ts\"",
     "lint:fail": "prettier --check --parser typescript \"{__tests__,docs,src,types}/**/*.ts\"",
