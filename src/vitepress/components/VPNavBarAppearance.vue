@@ -14,11 +14,13 @@ const { config } = useConfig()
 <style scoped>
 .VPNavBarAppearance {
   display: none;
+  width: 20px;
+  height: 20px !important;
 }
 
 @media (min-width: 1280px) {
   .VPNavBarAppearance {
-    display: block;
+    display: flex;
   }
 }
 </style>
