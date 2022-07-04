@@ -74,7 +74,7 @@ watchPostEffect(async () => {
   .VPSidebar {
     top: calc(var(--vt-nav-height) + var(--vt-banner-height, 0px));
     z-index: 1;
-    border-right: 1px solid var(--vt-c-divider-light);
+    /* border-right: 1px solid var(--vt-c-divider-light); */
     width: var(--vp-sidebar-width-small);
     max-width: 100%;
     opacity: 1;
@@ -102,9 +102,9 @@ watchPostEffect(async () => {
     transform 0.5s cubic-bezier(0.19, 1, 0.22, 1);
 }
 
-.dark .VPSidebar {
+/* .dark .VPSidebar {
   box-shadow: var(--vt-shadow-1);
-}
+} */
 
 .group + .group {
   padding-top: 24px;
