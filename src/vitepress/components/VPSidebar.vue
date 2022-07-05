@@ -25,7 +25,7 @@ watchPostEffect(async () => {
       <slot name="top" />
       <span id="sidebar-aria-label" class="visually-hidden">Sidebar Navigation</span>
       <div v-for="group in sidebar" :key="group.text" class="group">
-        <VPSidebarGroup :text="group.text" :items="group.items" />
+        <VPSidebarGroup :collapsible="group.collapsible" :text="group.text" :items="group.items" />
       </div>
       <slot name="bottom" />
     </nav>

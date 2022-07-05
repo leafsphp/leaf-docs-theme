@@ -3,13 +3,20 @@ import { MenuItemWithLink } from '../../core'
 import VPSidebarLink from './VPSidebarLink.vue'
 import { isActive } from '../support/utils'
 import { useData } from 'vitepress'
+import { ref } from 'vue';
+import VTIconChevronDown from './../../core/components/icons/VTIconChevronDown.vue';
+import VTIconChevronRight from './../../core/components/icons/VTIconChevronRight.vue';
 
 const props = defineProps<{
   text: string
-  items: MenuItemWithLink[]
+  items: MenuItemWithLink[],
+  collapsible: boolean,
+  collapsed: boolean,
 }>()
 
 const { page } = useData()
+const open = ref(false)
+
 function hasActiveLink() {
   const { relativePath } = page.value
   return props.items.some((item) => isActive(relativePath, item.link))
@@ -18,14 +25,18 @@ function hasActiveLink() {
 
 <template>
   <section class="VPSidebarGroup">
-    <div class="title">
+    <div class="title" :class="{ '-is-collapsible': collapsible }">
       <h2 class="title-text" :class="{ active: hasActiveLink() }">
         {{ text }}
+        <VTIconChevronRight v-if="collapsible && !open" @click="open = !open" class="vt-link-icon" :class="{ open }" />
+        <VTIconChevronDown v-if="collapsible && open" @click="open = !open" class="vt-link-icon" :class="{ open }" />
       </h2>
     </div>
 
-    <template v-for="item in items" :key="item.link">
-      <VPSidebarLink :item="item" />
+    <template v-if="collapsible && open || !collapsible">
+      <template v-for="item in items" :key="item.link">
+        <VPSidebarLink :item="item" />
+      </template>
     </template>
   </section>
 </template>
@@ -34,6 +45,15 @@ function hasActiveLink() {
 .title {
   padding: 6px 0;
   text-transform: uppercase;
+}
+
+.title.-is-collapsible {
+  display: flex;
+  justify-content: space-between;
+}
+
+.vt-link-icon {
+  fill: var(--vt-c-text-1) !important;
 }
 
 @media (min-width: 960px) {

@@ -1,6 +1,8 @@
 export type MenuItem = MenuItemWithLink | MenuItemWithChildren
 
 export interface MenuItemWithLink {
+  collapsible?: boolean;
+  collapsed?: boolean;
   text: string
   link: string
 }
