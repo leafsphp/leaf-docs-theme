@@ -7,7 +7,7 @@ import VTIconLinkedIn from './icons/VTIconLinkedIn.vue'
 import VTIconSlack from './icons/VTIconSlack.vue'
 import VTIconTwitter from './icons/VTIconTwitter.vue'
 import VTIconLanguages from './icons/VTIconLanguages.vue'
-import VTIconYoutube from './icons/VTIconYoutube.vue'
+import VTIconYouTube from './icons/VTIconYouTube.vue'
 
 const props = defineProps<{
   size?: SocialLinkSize
@@ -25,7 +25,7 @@ const icons = {
   slack: VTIconSlack,
   twitter: VTIconTwitter,
   languages: VTIconLanguages,
-  youtube: VTIconYoutube,
+  youtube: VTIconYouTube,
 }
 </script>
 
