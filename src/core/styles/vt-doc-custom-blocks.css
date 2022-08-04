@@ -27,7 +27,7 @@
   font-size: 18px;
   top: 20px;
   left: -16px;
-  z-index: 10000 !important;
+  z-index: 1 !important;
 }
 
 .vt-doc .custom-block.warning:before {
