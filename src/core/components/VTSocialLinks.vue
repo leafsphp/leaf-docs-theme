@@ -11,11 +11,12 @@ defineProps<{
 <template>
   <div class="vt-social-links">
     <VTSocialLink
-      v-for="{ link, icon } in links"
+      v-for="{ link, icon, classes } in links"
       :key="link"
       :size="size"
       :icon="icon"
       :link="link"
+      :classes="classes"
     />
   </div>
 </template>

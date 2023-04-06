@@ -1,6 +1,7 @@
 export interface SocialLink {
   icon: SocialLinkIcon
-  link: string
+  link: string,
+  classes?: string
 }
 
 export type SocialLinkIcon =
@@ -11,5 +12,6 @@ export type SocialLinkIcon =
   | 'slack'
   | 'twitter'
   | 'languages'
+  | 'youtube'
 
 export type SocialLinkSize = 'small' | 'medium'

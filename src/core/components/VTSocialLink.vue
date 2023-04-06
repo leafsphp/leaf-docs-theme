@@ -12,7 +12,8 @@ import VTIconYouTube from './icons/VTIconYouTube.vue'
 const props = defineProps<{
   size?: SocialLinkSize
   icon: SocialLinkIcon
-  link: string
+  link: string,
+  classes?: string
 }>()
 
 const target = /^[a-z]+:/i.test(props.link) ? `_blank` : undefined
@@ -31,10 +32,12 @@ const icons = {
 
 <template>
   <a
-    class="vt-social-link"
+    class=""
     :class="{
       'is-small': size === 'small',
-      'is-medium': size === 'medium'
+      'is-medium': size === 'medium',
+      'vt-social-link': true,
+      [classes ?? '']: true,
     }"
     :href="link"
     :title="icon"
