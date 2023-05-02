@@ -3,7 +3,7 @@ import { MenuItemWithLink } from '../../core'
 import VPSidebarLink from './VPSidebarLink.vue'
 import { isActive } from '../support/utils'
 import { useData } from 'vitepress'
-import { ref } from 'vue';
+import { ref, watchEffect } from 'vue';
 import VTIconChevronDown from './../../core/components/icons/VTIconChevronDown.vue';
 import VTIconChevronRight from './../../core/components/icons/VTIconChevronRight.vue';
 
@@ -16,17 +16,37 @@ const props = defineProps<{
 
 const { page } = useData()
 const open = ref(false)
+const forceOpen = ref(false)
 
 function hasActiveLink() {
   const { relativePath } = page.value
   return props.items.some((item) => isActive(relativePath, item.link))
 }
+
+watchEffect(() => {
+  if (props.collapsed) {
+    open.value = false
+  }
+
+  if (hasActiveLink() && props.collapsible) {
+    open.value = true
+    forceOpen.value = false
+  }
+
+  if (!hasActiveLink()) {
+    open.value = false
+
+    if (forceOpen.value) {
+      open.value = true
+    }
+  }
+})
 </script>
 
 <template>
   <section class="VPSidebarGroup">
     <div class="title" :class="{ '-is-collapsible': collapsible }">
-      <h2 class="title-text" :class="{ active: hasActiveLink() }">
+      <h2 class="title-text" @click="() => forceOpen = true" :class="{ active: hasActiveLink() }">
         {{ text }}
         <VTIconChevronRight v-if="collapsible && !open" @click="open = !open" class="vt-link-icon" :class="{ open }" />
         <VTIconChevronDown v-if="collapsible && open" @click="open = !open" class="vt-link-icon" :class="{ open }" />
@@ -42,6 +62,10 @@ function hasActiveLink() {
 </template>
 
 <style scoped>
+* {
+  transition: ease all 0.8s;
+}
+
 .title {
   padding: 6px 0;
   text-transform: uppercase;
