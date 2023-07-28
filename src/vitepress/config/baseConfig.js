@@ -1,3 +1,5 @@
+// @ts-check
+
 /**
  * This file is intended to be required from VitePress
  * consuming project's config file.
@@ -6,12 +8,14 @@
  */
 
 // for local-linked development
-const deps = ['@vue/theme', '@vueuse/core', 'body-scroll-lock']
+const deps = ['@leafphp/theme', '@vueuse/core', 'body-scroll-lock']
 
 /**
- * @type {() => Promise<import('vitepress').UserConfig>}
+ * @type {import('vitepress').UserConfig}
  */
-module.exports = async () => ({
+const config = {
+  scrollOffset: ['header', '.VPLocalNav'],
+
   vite: {
     ssr: {
       noExternal: deps
@@ -28,36 +32,39 @@ module.exports = async () => ({
         rel: 'icon',
         href: '/logo.svg'
       }
-    ],
-    ...(process.env.NODE_ENV === 'production'
-      ? [
-          [
-            'link',
-            {
-              rel: 'preload',
-              href: '/assets/inter-latin.7b37fe23.woff2',
-              as: 'font',
-              type: 'font/woff2',
-              crossorigin: 'anonymous'
-            }
-          ]
-        ]
-      : []),
-    [
-      'script',
-      {},
-      require('fs').readFileSync(
-        require('path').resolve(
-          __dirname,
-          './inlined-scripts/applyDarkMode.js'
-        ),
-        'utf-8'
-      )
     ]
   ],
 
-  shouldPreload: (link) => {
+  markdown: {
+    headers: {
+      level: [2, 3]
+    }
+  },
+
+  transformHead({ assets }) {
+    const font = assets.find((file) =>
+      /inter-roman-latin\.\w+\.woff2/.test(file)
+    )
+    if (font) {
+      return [
+        [
+          'link',
+          {
+            rel: 'preload',
+            href: font,
+            as: 'font',
+            type: 'font/woff2',
+            crossorigin: ''
+          }
+        ]
+      ]
+    }
+  },
+
+  shouldPreload(link) {
     // make algolia chunk prefetch instead of preload
     return !link.includes('Algolia')
   }
-})
+}
+
+module.exports = config

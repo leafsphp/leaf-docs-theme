@@ -1,43 +1,36 @@
-import { onMounted, onUnmounted, onUpdated, Ref } from 'vue'
-import { Header } from 'vitepress'
+import { computed, inject, onMounted, onUnmounted, onUpdated, Ref } from 'vue'
+import { Header, useData } from 'vitepress'
 import { useMediaQuery } from '@vueuse/core'
 import { MenuItemWithLink } from '../../core'
 
-interface HeaderWithChildren extends Header {
-  children?: Header[]
+export interface HeaderWithChildren extends Header {
   hidden?: boolean
 }
 
-interface MenuItemWithLinkAndChildren extends MenuItemWithLink {
+export interface MenuItemWithLinkAndChildren extends MenuItemWithLink {
   children?: MenuItemWithLinkAndChildren[]
   hidden?: boolean
 }
 
-export function resolveHeaders(headers: HeaderWithChildren[]) {
-  return mapHeaders(groupHeaders(headers))
+export function useOutlineHeaders() {
+  const { page } = useData()
+  const filterHeaders = inject('filter-headers', null) as any
+  return computed(() => {
+    return resolveHeaders(page.value.headers, filterHeaders)
+  })
 }
 
-function groupHeaders(headers: Header[]): HeaderWithChildren[] {
-  headers = headers.map((h) => Object.assign({}, h))
-  let lastH2: HeaderWithChildren | undefined
-  for (const h of headers) {
-    if (h.level === 2) {
-      lastH2 = h
-    } else if (lastH2 && h.level <= 3) {
-      ;(lastH2.children || (lastH2.children = [])).push(h)
-    }
-  }
-  return headers.filter((h) => h.level === 2)
-}
-
-function mapHeaders(
-  headers: HeaderWithChildren[]
+function resolveHeaders(
+  headers: HeaderWithChildren[],
+  filter?: (h: HeaderWithChildren) => boolean
 ): MenuItemWithLinkAndChildren[] {
   return headers.map((header) => ({
     text: header.title,
-    link: `#${header.slug}`,
-    children: header.children ? mapHeaders(header.children) : undefined,
-    hidden: header.hidden
+    link: header.link,
+    children: header.children?.length
+      ? resolveHeaders(header.children, filter)
+      : undefined,
+    hidden: filter ? !filter(header) : false
   }))
 }
 
@@ -68,7 +61,8 @@ export function useActiveAnchor(
     // page bottom - highlight last one
     if (
       anchors.length &&
-      window.scrollY + window.innerHeight === document.body.offsetHeight
+      // https://github.com/vuejs/theme/pull/74
+      window.scrollY + window.innerHeight >= document.body.offsetHeight - 1
     ) {
       activateLink(anchors[anchors.length - 1].hash)
       return
@@ -156,7 +150,7 @@ function isAnchorActive(
 }
 
 function throttleAndDebounce(fn: () => void, delay: number): () => void {
-  let timeout: number
+  let timeout: any
   let called = false
 
   return () => {

@@ -1,40 +1,145 @@
-.token.punctuation, .token.operator, .token.entity, .token.url {
+.line.diff {
+  transition: background-color 0.5s;
+  margin: 0 -28px;
+  padding: 0 28px;
+  width: calc(100% + 56px);
+  display: inline-block;
+}
+
+@media only screen and (max-width: 480px) {
+  .line.diff {
+    margin: 0 -20px;
+    padding: 0 20px;
+    width: calc(100% + 40px);
+  }
+}
+
+.line.diff.remove {
+  background-color: rgba(244, 63, 94, 0.2);
+  opacity: 0.7;
+}
+
+.line.diff.add {
+  background-color: rgba(16, 185, 129, 0.2);
+}
+
+.line.diff.remove::before {
+  box-sizing: border-box;
+  color: rgb(244, 63, 94);
+  content: '-';
+  left: 10px;
+  position: absolute;
+}
+
+.line.diff.add:before {
+  content: '+';
+  color: #10b981;
+  position: absolute;
+  left: 10px;
+}
+
+.token.punctuation,
+.token.operator,
+.token.entity,
+.token.url {
   color: rgb(146, 153, 166) !important;
 }
 
-.token.tag, .token.attr-name, .token.namespace, .token.deleted {
+.token.tag,
+.token.attr-name,
+.token.namespace,
+.token.deleted {
   color: #fff;
 }
 
-.token.string, .token.char, .token.attr-value, .token.regex, .token.variable {
-  color: #BEF264;
+.token.string,
+.token.char,
+.token.attr-value,
+.token.regex,
+.token.variable {
+  color: #bef264;
 }
 
-.token.selector, .token.important, .token.atrule, .token.keyword, .token.builtin {
-  color: #E879F9;
+.token.selector,
+.token.important,
+.token.atrule,
+.token.keyword,
+.token.builtin {
+  color: #e879f9;
 }
 
 .token.keyword {
   font-style: italic !important;
 }
 
-.token.boolean, .token.number, .token.function {
-  color: #22D3EE;
+.token.boolean,
+.token.number,
+.token.function {
+  color: #22d3ee;
 }
 
-.token.property, .token.class-name, .token.constant, .token.symbol {
+.token.property,
+.token.class-name,
+.token.constant,
+.token.symbol {
   color: #fff;
 }
 
-.token.operator, .token.entity, .token.url {
+.token.operator,
+.token.entity,
+.token.url {
   color: #0b7e7d;
 }
 
-.token.comment, .token.block-comment, .token.prolog, .token.doctype, .token.cdata {
+.token.comment,
+.token.block-comment,
+.token.prolog,
+.token.doctype,
+.token.cdata {
   color: rgb(146, 153, 166);
 }
 
-div[class*=language-].line-numbers-mode .line-numbers-wrapper, div[class*=language-].line-numbers-mode:after {
+div[class*='language-'] .copy {
+  position: absolute;
+  display: none;
+  background: #001318;
+  color: #ccc;
+  border: 1px solid #333;
+  border-radius: 8px;
+  transition: ease all 2s;
+  top: 5px;
+  right: 5px;
+  z-index: 10;
+  padding: 4px 10px;
+  justify-content: center;
+  align-items: center;
+}
+
+div[class*='language-']:hover .copy {
+  background: #001318;
+  color: #fff;
+  display: flex;
+}
+
+div[class*='language-'] .copy::before {
+  content: 'Copy';
+  font-size: 10px;
+}
+
+div[class*='language-'] .copied::before {
+  content: 'Copied';
+}
+
+div[class*='language-'] .lang {
+  display: none;
+}
+
+div[class*='language-'] code {
+  width: 100%;
+}
+
+div[class*='language-'].line-numbers-mode .line-numbers-wrapper,
+div[class*='language-'].line-numbers-mode:after {
   background-color: #001318;
   color: #ccc;
   border-right: 1px solid #333;
@@ -42,38 +147,42 @@ div[class*=language-].line-numbers-mode .line-numbers-wrapper, div[class*=langua
   border-bottom-left-radius: 6px;
 }
 
-div[class~="language-javascript"]:before {
-  content: "js";
+div[class*='language-']:hover::before {
+  content: '';
 }
 
-div[class~="language-typescript"]:before {
-  content: "ts";
+div[class~='language-javascript']:before {
+  content: 'js';
 }
 
-div[class~="language-markup"]:before {
-  content: "html";
+div[class~='language-typescript']:before {
+  content: 'ts';
 }
 
-div[class~="language-php"]:before {
-  content: "php";
+div[class~='language-markup']:before {
+  content: 'html';
 }
 
-div[class~="language-markdown"]:before {
-  content: "md";
+div[class~='language-php']:before {
+  content: 'php';
 }
 
-div[class~="language-json"]:before {
-  content: "json";
+div[class~='language-markdown']:before {
+  content: 'md';
 }
 
-div[class~="language-ruby"]:before {
-  content: "rb";
+div[class~='language-json']:before {
+  content: 'json';
 }
 
-div[class~="language-python"]:before {
-  content: "py";
+div[class~='language-ruby']:before {
+  content: 'rb';
 }
 
-div[class~="language-bash"]:before {
-  content: "sh";
+div[class~='language-python']:before {
+  content: 'py';
+}
+
+div[class~='language-bash']:before {
+  content: 'sh';
 }

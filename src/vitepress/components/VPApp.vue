@@ -1,13 +1,15 @@
 <script lang="ts" setup>
 import { VTBackdrop } from '../../core'
 import { useSidebar } from '../composables/sidebar'
+import { onMounted, onUnmounted, provide, watchEffect } from 'vue'
+
 import VPNav from './VPNav.vue'
 import VPLocalNav from './VPLocalNav.vue'
 import VPSkipLink from './VPSkipLink.vue'
 import VPAnnouncer from './VPAnnouncer.vue'
 import VPSidebar from './VPSidebar.vue'
 import VPContent from './VPContent.vue'
-import { onMounted, onUnmounted, provide, watchEffect } from 'vue'
+import VPHero from './VPHero.vue'
 
 const {
   isOpen: isSidebarOpen,
@@ -51,15 +53,12 @@ provide('close-sidebar', closeSidebar)
         <slot name="navbar-title" />
       </template>
     </VPNav>
+    <VPHero>
+      <template #hero-top>
+        <slot name="hero-top" />
+      </template>
+    </VPHero>
     <VPLocalNav :open="isSidebarOpen" @open-menu="openSidebar" />
-    <VPSidebar :open="isSidebarOpen">
-      <template #top>
-        <slot name="sidebar-top" />
-      </template>
-      <template #bottom>
-        <slot name="sidebar-bottom" />
-      </template>
-    </VPSidebar>
     <VPContent>
       <template #content-top>
         <slot name="content-top" />
